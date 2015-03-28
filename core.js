@@ -5,7 +5,7 @@
 /**
  * a Generic core object
  */
-var Core = function () {
+var Core = (function () {
 
     /**
      * datastore getter
@@ -142,5 +142,7 @@ var Core = function () {
         set: set
     };
 
-    return obj;
-};
+    return function () {
+        return obj;
+    };
+})();
