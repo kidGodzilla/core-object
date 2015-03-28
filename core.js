@@ -2,10 +2,24 @@
  * Core.js
  ***************************************************/
 
+'use strict';
+
+function needsNew() {
+    throw new TypeError("Failed to construct: Please use the 'new' operator, this object constructor cannot be called as a function.");
+}
+
 /**
  * a Generic core object
  */
 var Core = (function () {
+
+    var constructor = this;
+
+    /**
+     * Prevent direct execution
+     */
+    if (!(this instanceof CoreObject))
+        needsNew();
 
     /**
      * datastore getter
@@ -68,7 +82,7 @@ var Core = (function () {
                     /**
                      * Execute the intended function
                      */
-                    result = value.apply(this, args);
+                    var result = value.apply(this, args);
 
                     /**
                      * Execute After hooks on the result
@@ -131,11 +145,12 @@ var Core = (function () {
     /**
      * Return public objects & methods
      */
-    obj = {
+    var obj = {
         data: {},
         hooks: {},
         executeFunctionArray: executeFunctionArray,
         registerGlobal: registerGlobal,
+        __proto__: constructor,
         before: before,
         after: after,
         get: get,
@@ -146,3 +161,8 @@ var Core = (function () {
         return obj;
     };
 })();
+
+/* global define:true module:true window: true */
+if (typeof define === 'function' && define['amd'])      { define(function() { return Core; }); }
+if (typeof module !== 'undefined' && module['exports']) { module['exports'] = Core; }
+if (typeof window !== 'undefined')                      { window['Core'] = Core; }

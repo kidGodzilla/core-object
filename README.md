@@ -51,3 +51,7 @@ We could add a before hook to generateUID which always set the separator to `+`
      });
 
 Then, when we called generateUID('-'), we would get a GUID separated by `+` instead.
+
+# Demo
+
+http://jsbin.com/loneruxega/1/edit?js,console
