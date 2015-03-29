@@ -18,7 +18,7 @@ var Core = (function () {
     /**
      * Prevent direct execution
      */
-    if (!(this instanceof CoreObject))
+    if (!(this instanceof Core))
         needsNew();
 
     /**
